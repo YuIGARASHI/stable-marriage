@@ -139,8 +139,10 @@ class Matching():
         return None
 
     def show(self):
-        for pair in self.pairs:
-            print(" (" + str(pair[0].index) + ", " + str(pair[1].index) + ")", end=" ")
+        pair_list = [(pair[0].index, pair[1].index) for pair in self.pairs]
+        pair_list.sort()
+        for pair in pair_list:
+            print("(" + str(pair[0]) + ", " + str(pair[1]) + ")", end=" ")
         print()
 
 if __name__ == "__main__":

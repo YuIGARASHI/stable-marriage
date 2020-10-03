@@ -60,6 +60,7 @@ class SMUtil:
                     return False, (man, woman)
         return True, (Person(0, -1), Person(0, -1))
 
+
 if __name__ == "__main__":
     random.seed(3)
 
