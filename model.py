@@ -86,10 +86,23 @@ class Matching():
         '''
         self.pairs.append((man, woman))
 
+    def remove_pair(self, man, woman):
+        '''
+        男女ペアを削除する。
+        指定された男女ペアが存在しない場合の動作は未保証。
+
+        Parameters
+        ----------
+        man : Person
+            男性オブジェクト。
+        women : Person
+            女性オブジェクト。
+        '''
+        self.pairs.remove((man, woman))
+
     def search_husband(self, woman):
         '''
         該当のマッチング中のwomanのマッチング相手を返す。
-        マッチング中にwomanが含まれない場合の挙動は未保証。
 
         Parameters
         ----------
@@ -99,15 +112,16 @@ class Matching():
         Returns
         -------
             womanとマッチしている男性オブジェクト。
+            マッチング中にwomanが含まれない場合はNoneを返す。
         '''
         for pair in self.pairs:
             if woman.index == pair[1].index:
                 return pair[0]
+        return None
 
     def search_wife(self, man):
         '''
         該当のマッチング中のmanのマッチング相手を返す。
-        マッチング中にmanが含まれない場合の挙動は未保証。
 
         Parameters
         ----------
@@ -117,10 +131,12 @@ class Matching():
         Returns
         -------
             manとマッチしている女性オブジェクト。
+            マッチング中にmanが含まれない場合はNoneを返す。
         '''
         for pair in self.pairs:
             if man.index == pair[0].index:
                 return pair[1]
+        return None
 
     def show(self):
         for pair in self.pairs:
@@ -132,7 +148,6 @@ if __name__ == "__main__":
 
     # インスタンス生成
     instance = Instance(10)
-    print("show Instance")
     instance.show()
 
     # 選好順序の判定メソッド
@@ -146,5 +161,6 @@ if __name__ == "__main__":
     matching = Matching()
     matching.add_pair(man1, woman0)
     matching.add_pair(man0, woman3)
-    print("show Matching")
-    matching.show() # (1, 0), (0, 3)
+    matching.show()  # => (1, 0), (0, 3)
+    matching.remove_pair(man1, woman0)
+    matching.show()  # => (0, 3)
